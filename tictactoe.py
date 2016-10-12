@@ -5,15 +5,15 @@ board = [" ", " ", " ", " ", " ", " ", " ", " ", " ", ]
 
 def printBoard():
 	print('   |   |')
-	print(' ' + board[8] + ' | ' + board[7] + ' | ' + board[6])
+	print(' ' + board[7] + ' | ' + board[8] + ' | ' + board[9])
 	print('   |   |')
 	print('-----------')
 	print('   |   |')
-	print(' ' + board[3] + ' | ' + board[4] + ' | ' + board[5])
+	print(' ' + board[4] + ' | ' + board[5] + ' | ' + board[6])
 	print('   |   |')
 	print('-----------')
 	print('   |   |')
-	print(' ' + board[0] + ' | ' + board[1] + ' | ' + board[2])
+	print(' ' + board[1] + ' | ' + board[2] + ' | ' + board[3])
 	print('   |   |')
 
 def chooseLetter():
@@ -29,6 +29,9 @@ def chooseLetter():
 		print('Invalid input')
 		chooseLetter()
 
+def posibleMoves(move):
+	return board[move] == " "
+
 def whoGoesFirst():
 	#randomly chooses who goes first (with a 0 for user and 1 for ia)
 	print('Randomly choosing who goes first...')
@@ -41,19 +44,26 @@ def whoGoesFirst():
 	global currentMove
 
 def placeMove(move):
-	board[move] = letter[currentMove]
+	return board[move] = letter[currentMove]
 
-def movement():
+def askMovement():
 	print('What is your movement?')
-	move = int(input())
-	placeMove(move)
+	move = input()[:1]
+	try:
+		move = int(move)
+	except Exception, e:
+		print('Try again!')
+		askMovement()
+	else:
+		if move != 0 and not posibleMoves(move):
+			placeMove(move)
 
 def game():
 	printBoard()
 	chooseLetter()
 	whoGoesFirst()
-	if currentMove == 0:
-		movement()
+	if True:
+		askMovement()
 		printBoard()
 	else:
 		print('WIP')
