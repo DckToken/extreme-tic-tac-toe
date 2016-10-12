@@ -1,8 +1,6 @@
 import random
 
 #board = [None, "X", "O", "O", "X", "X", "O", "X", "X", "O"] #for testing purpouses
-global board
-board = [None, " ", " ", " ", " ", " ", " ", " ", " ", " "]
 
 def printBoard():
 	print('   |   |')
@@ -37,7 +35,6 @@ def whoGoesFirst():
 	return firstMove
 
 def placeMove(move):
-	global board
 	board[move] = letter[currentMove]
 
 def askMovement():
@@ -54,11 +51,14 @@ def askMovement():
 
 if True: #use the one below, this is temporaly
 #while True:
+	board = [" "] * 10
 	player, ia = chooseLetter()
 	turn = whoGoesFirst()
 	ingame = True
 	if ingame is True: #same as below, use while when fully developed
 		if turn is 0:
 			print('Your turn!')
+
 		if turn is 1:
 			print('IA turn')
+			
