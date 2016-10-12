@@ -1,7 +1,8 @@
 import random
 
-#board = ["X", "O", "O", "X", "X", "O", "X", "X", "O"] #for testing purpouses
-board = [" ", " ", " ", " ", " ", " ", " ", " ", " ", ]
+#board = [None, "X", "O", "O", "X", "X", "O", "X", "X", "O"] #for testing purpouses
+global board
+board = [None, " ", " ", " ", " ", " ", " ", " ", " ", " "]
 
 def printBoard():
 	print('   |   |')
@@ -17,55 +18,47 @@ def printBoard():
 	print('   |   |')
 
 def chooseLetter():
-	print('Do you want to be X or O?')
-	userInput = input().upper()
+	userInput = ""
+	while not (userInput == "X" or userInput == "O"):
+		print('Do you want to be X or O?')
+		userInput = input('> ').upper()
+	global letter
 	if userInput == "X":
-		letter = ["X", "O"]
-		global letter
-	if userInput == "O":
-		letter = ["O", "X"]
-		global letter
+		return ["X", "O"]
 	else:
-		print('Invalid input')
-		chooseLetter()
+		return ["O", "X"]
 
 def posibleMoves(move):
 	return board[move] == " "
 
 def whoGoesFirst():
 	#randomly chooses who goes first (with a 0 for user and 1 for ia)
-	print('Randomly choosing who goes first...')
 	firstMove = random.randint(0, 1)
-	if firstMove == 0:
-		print('You go first!')
-	if firstMove == 1:
-		print('IA goes first')
-	currentMove = firstMove
-	global currentMove
+	return firstMove
 
 def placeMove(move):
-	return board[move] = letter[currentMove]
+	global board
+	board[move] = letter[currentMove]
 
 def askMovement():
 	print('What is your movement?')
-	move = input()[:1]
+	move = input('> ')[:1]
 	try:
 		move = int(move)
-	except Exception, e:
+	except Exception:
 		print('Try again!')
 		askMovement()
 	else:
 		if move != 0 and not posibleMoves(move):
 			placeMove(move)
 
-def game():
-	printBoard()
-	chooseLetter()
-	whoGoesFirst()
-	if True:
-		askMovement()
-		printBoard()
-	else:
-		print('WIP')
-
-game()
+if True: #use the one below, this is temporaly
+#while True:
+	player, ia = chooseLetter()
+	turn = whoGoesFirst()
+	ingame = True
+	if ingame is True: #same as below, use while when fully developed
+		if turn is 0:
+			print('Your turn!')
+		if turn is 1:
+			print('IA turn')
