@@ -15,4 +15,15 @@ def printBoard():
 	print(' ' + board[0] + ' | ' + board[1] + ' | ' + board[2])
 	print('   |   |')
 
+def chooseLetter():
+	print('Do you want to be X or Y?')
+	letter = str(input().upper())
+	if letter == "X" or letter == "Y":
+		print('[DEBUG] You did good')
+		return
+	else:
+		print('Invalid input')
+		chooseLetter()
+
 printBoard()
+chooseLetter()
