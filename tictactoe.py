@@ -37,17 +37,12 @@ def whoGoesFirst():
 def placeMove(move):
 	board[move] = letter[currentMove]
 
-def askMovement():
+def askMovement(board):
 	print('What is your movement?')
-	move = input('> ')[:1]
-	try:
-		move = int(move)
-	except Exception:
-		print('Try again!')
-		askMovement()
-	else:
-		if move != 0 and not posibleMoves(move):
-			placeMove(move)
+	move = input('> ')[0]
+	if move.isdigit():
+		if move != 0 and posibleMoves(int(move)) == True:
+			return move
 
 if True: #use the one below, this is temporaly
 #while True:
@@ -58,7 +53,7 @@ if True: #use the one below, this is temporaly
 	if ingame is True: #same as below, use while when fully developed
 		if turn is 0:
 			print('Your turn!')
-
+			move = askMovement(board)
+			print(move)
 		if turn is 1:
 			print('IA turn')
-			
