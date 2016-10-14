@@ -55,5 +55,7 @@ if True: #use the one below, this is temporaly
 			print('Your turn!')
 			move = askMovement(board)
 			print(move)
+			exit(0)
 		if turn is 1:
 			print('IA turn')
+			exit(0)
