@@ -2,7 +2,7 @@ import random
 
 #board = [None, "X", "O", "O", "X", "X", "O", "X", "X", "O"] #for testing purpouses
 
-def printBoard():
+def printBoard(board):
 	print('   |   |')
 	print(' ' + board[7] + ' | ' + board[8] + ' | ' + board[9])
 	print('   |   |')
@@ -14,6 +14,16 @@ def printBoard():
 	print('   |   |')
 	print(' ' + board[1] + ' | ' + board[2] + ' | ' + board[3])
 	print('   |   |')
+
+def checkWinner(bo, le):
+    return ((board[7] == letter and board[8] == letter and board[9] == le) or # across the top
+    (board[4] == letter and board[5] == letter and board[6] == le) or # across the middle
+    (board[1] == letter and board[2] == letter and board[3] == le) or # across the bottom
+    (board[7] == letter and board[4] == letter and board[1] == le) or # down the left side
+    (board[8] == letter and board[5] == letter and board[2] == le) or # down the middle
+    (board[9] == letter and board[6] == letter and board[3] == le) or # down the right side
+    (board[7] == letter and board[5] == letter and board[3] == le) or # diagonal
+    (board[9] == letter and board[5] == letter and board[1] == le)) # diagonal
 
 def chooseLetter():
 	userInput = ""
@@ -30,12 +40,16 @@ def posibleMoves(move):
 	return board[move] == " "
 
 def whoGoesFirst():
-	#randomly chooses who goes first (with a 0 for user and 1 for ia)
+	#randomly chooses who goes first
 	firstMove = random.randint(0, 1)
+	if firstMove is 0:
+		return "player"
+	else:
+		return "ia"
 	return firstMove
 
-def placeMove(move):
-	board[move] = letter[currentMove]
+def placeMove(move, letter, board):
+	board[int(move)] = letter
 
 def askMovement(board):
 	print('What is your movement?')
@@ -47,15 +61,18 @@ def askMovement(board):
 if True: #use the one below, this is temporaly
 #while True:
 	board = [" "] * 10
-	player, ia = chooseLetter()
+	player_letter, ia_letter = chooseLetter()
 	turn = whoGoesFirst()
 	ingame = True
 	if ingame is True: #same as below, use while when fully developed
-		if turn is 0:
+		if turn is "player":
 			print('Your turn!')
+			printBoard(board)
 			move = askMovement(board)
 			print(move)
+			placeMove(move, player_letter, board)
+			printBoard(board)
 			exit(0)
-		if turn is 1:
+		if turn is "ia":
 			print('IA turn')
 			exit(0)
